@@ -1,0 +1,136 @@
+"about language
+set t_Co=256
+set termencoding=utf-8
+set fileencodings=utf-8,gbk
+set encoding=utf-8
+set fileencoding=utf-8
+let mapleader=","
+
+set wildmenu
+
+set nobackup
+
+"basic
+set nocompatible
+syntax on
+filetype plugin indent on   
+set number        
+set ruler 
+set shiftwidth=4 
+set softtabstop=4
+set tabstop=4
+
+
+set backupcopy=yes         
+set ignorecase smartcase  
+set nowrapscan           
+set incsearch           
+set hlsearch           
+set noerrorbells      
+set novisualbell
+set cursorline
+set magic         
+set hidden
+set smartindent
+set backspace=indent,eol,start
+set cmdheight=1
+set laststatus=2
+set statusline=\ %<%F[%1*%M%*%n%R%H]%=\ %y\ %0(%{&fileformat}\ %{&encoding}\ %c:%l/%L%)\ 
+set nofoldenable
+set foldmethod=indent
+set foldcolumn=0
+setlocal foldlevel=1
+
+
+"tab-edit command
+map tn :tabnext<CR>
+map tp :tabprevious<CR>
+"move between windows
+"nnoremap <C-h> <C-w>h
+"nnoremap <C-l> <C-w>l
+"nnoremap <C-k> <C-w>k
+"nnoremap <C-j> <C-w>j
+
+" configure tags - add additional tags here or comment out not-used ones
+set tags+=~/.vim/tags/cpptag
+set tags+=~/.vim/tags/publictags
+set tags+=~/.vim/tags/spframetags
+set tags+=./tags
+map <F12> :!ctags -R --c++-kinds=+p --fields=+iazKS	--extra=+q .<CR>
+"" OmniCppComplete
+let OmniCpp_NamespaceSearch = 1
+let OmniCpp_GlobalScopeSearch = 1
+let OmniCpp_ShowAccess = 1
+let OmniCpp_ShowPrototypeInAbbr =1 " show function parameters
+let OmniCpp_MayCompleteDot = 1 " autocomplete after .
+let OmniCpp_MayCompleteArrow =1 " autocomplete after ->
+let OmniCpp_MayCompleteScope= 1 " autocomplete
+"automatically open and close the popup menu/preview window
+au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
+set completeopt=menuone,menu,longest
+"highlight Pmenu ctermbg=13 guibg=LightGray
+highlight PmenuSel ctermfg=7 ctermbg=4 guibg=DarkBlue guifg=White
+"highlight PmenuSbar ctermbg=7 guibg=DarkGray
+"highlight PmenThumb guibg=Black
+
+
+"cscope
+""if has("cscope")
+""	set csprg=/usr/bin/cscope
+""	set csto=1
+""	set cst
+""	set nocsverb
+""	if filereadable("cscope.out")
+""		cs add cscope.out
+""	endif
+""	set csverb
+""endif
+
+""nmap <C-@>s :cs find s <C-R>=expand("<cword>")<CR><CR>
+
+
+"taglist
+map <F9> :silent! Tlist<CR>
+let Tlist_Ctags_Cmd='ctags'
+"let Tlist_Use_Right_Window=1
+let Tlist_Show_One_File=1	"if only show the current file's tags,1 means only
+let Tlist_File_Fold_Auto_Close=1
+let Tlist_Exit_OnlyWindow=1
+let Tlist_Process_File_Always=0
+
+
+"NERDTree
+map <F10> :NERDTreeToggle<CR>
+imap <F10> <ESC>:NERDTreeToggel<CR>
+let NERDTreeWinPos="right"
+
+"a.vim
+"nnoremap <C-h> :AV<CR>
+
+:inoremap ( ()<ESC>i
+:inoremap [ []<ESC>i
+:inoremap { {}<ESC>i
+:inoremap " ""<ESC>i
+:inoremap ' ''<ESC>i
+"":inoremap < <><ESC>i
+
+:inoremap ) <c-r>=ClosePair(')')<CR>
+:inoremap } <c-r>=ClosePair('}')<CR>
+:inoremap ] <c-r>=ClosePair(']')<CR>
+"":inoremap > <c-r>=ClosePair('>')<CR>
+
+function ClosePair(char)
+	if getline('.')[col('.')-1] == a:char
+		return "\<Right>"
+	else
+		return a:char
+	endif
+endf
+
+
+set autoindent " same level indent
+set smartindent " next level indent
+set expandtab
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
